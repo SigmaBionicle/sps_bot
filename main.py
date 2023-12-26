@@ -1,7 +1,7 @@
 import telebot
 from telebot import types
 
-API_TOKEN = '***'
+API_TOKEN = '6314524501:AAHQ9rsWLZH61oTdv0C8L5kbbPwpSsoWdEA'
 
 bot = telebot.TeleBot(API_TOKEN)
 
@@ -38,6 +38,37 @@ def process_executor_step(message, project_name, project_description):
     chat_id = message.chat.id
     executor = message.text
     bot.send_message(chat_id, "Ваша заявка принята.")
+
+def second_menu(message):
+    if message.text == "Графики":
+        markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
+        item1 = types.KeyboardButton("Таблица")
+        item2 = types.KeyboardButton("Круговая диаграмма")
+        item3 = types.KeyboardButton("График рассеяния")
+        item4 = types.KeyboardButton("Гистограмма")
+        item5 = types.KeyboardButton("Назад")
+        markup.add(item1, item2, item3, item4, item5)
+        bot.send_message(message.chat.id, 'Выберите что вам надо', reply_markup=markup)
+
+@bot.message_handler(content_types='text')
+def message_reply(message):
+    if message.text == "Графики":
+        second_menu(message)
+    if message.text == "Назад":
+        chat_id = message.chat.id
+        bot.send_message(chat_id, "Спасибо, что вопользовались ботом!")
+    if message.text == "Таблица":
+        photo = open('Таблица.png', 'rb')
+        bot.send_photo(message.chat.id, photo)
+    if message.text == "Круговая диаграмма":
+        photo = open('Круговая диаграмма.png', 'rb')
+        bot.send_photo(message.chat.id, photo)
+    if message.text == "График рассеяния":
+        photo = open('График рассеяния.png', 'rb')
+        bot.send_photo(message.chat.id, photo)
+    if message.text == "Гистограмма":
+        photo = open('Гистограмма.png', 'rb')
+        bot.send_photo(message.chat.id, photo)
 
 
 # Запуск бота
