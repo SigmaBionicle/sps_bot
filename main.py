@@ -37,7 +37,7 @@ def process_executor_step(message, project_name, project_description):
     # сохраняем выбор исполнителя и завершаем общение
     chat_id = message.chat.id
     executor = message.text
-    bot.send_message(chat_id, "Ваша заявка принята.")
+    bot.send_message(chat_id, "Ваша заявка принята. Ждите обратной связи")
 
 def second_menu(message):
     if message.text == "Графики":
